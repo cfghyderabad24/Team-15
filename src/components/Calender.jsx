@@ -11,7 +11,7 @@ const Calendar = () => {
         const currentDate = new Date();
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
+            'June', 'August', 'September', 'October', 'November', 'December'
         ];
         const month = monthNames[currentDate.getMonth()];
         const year = currentDate.getFullYear();

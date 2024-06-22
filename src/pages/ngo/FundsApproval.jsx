@@ -9,11 +9,11 @@ const data = [
 const getColor = (status) => {
   switch (status) {
     case 'approved':
-      return '#4CAF50'; // Green
+      return '#4CAF50'; // Green colour
     case 'denied':
-      return '#F44336'; // Red
+      return '#F44336'; // Red colour
     default:
-      return '#000000'; // Black
+      return '#000000'; // Black colour 
   }
 };
 

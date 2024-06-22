@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Project_Table, Report
@@ -97,6 +98,15 @@ def ticket_create(request):
     return Response(serializer.errors, status=400)
 
 
+@api_view(['POST'])
+def edit_is_approved(request, project_id):
+    project = get_object_or_404(Project_Table, project_id=project_id)
+    is_approved = request.data.get('isApproved', False)
+    project.isApproved = is_approved
+    project.save()
+    return Response({'status': 'success', 'project_id': project_id, 'isApproved': project.isApproved})
+
+
 
 @api_view(['PUT'])
 def update_ticket(request, id):
@@ -130,11 +140,17 @@ def edit_project_approval(request, project_id):
     except Project_Table.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = ProjectTableSerializer(project, data=request.data)
+    serializer = ProjectSerializer(project, data=request.data,partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def approved_count(request):
+    total_count = Project_Table.objects.count()
+    approved_count = Project_Table.objects.filter(isApproved=True).count()
+    return Response({'total_count': total_count,'approved_count':approved_count})
 
 
 @api_view(['GET', 'POST'])

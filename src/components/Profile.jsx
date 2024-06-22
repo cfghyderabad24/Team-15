@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, Space, Typography } from "antd";
+import { Avatar } from "antd";
 import { EditOutlined, ShareAltOutlined } from "@ant-design/icons";
-
-const { Title, Text } = Typography;
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -37,92 +34,30 @@ const Profile = () => {
     return <div>Loading ...</div>;
   }
 
-  const profileContainerStyle = {
-    marginTop: "20px",
-    position: "relative",
-    overflow: "hidden",
-    borderRadius: "10px",
-    backgroundColor: "#fff",
-    boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)",
-  };
-
-  const coverImageStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    zIndex: -1,
-  };
-
-  const profileImageStyle = {
-    width: "100%",
-    maxWidth: "200px",
-    height: "auto",
-    borderRadius: "50%",
-    border: "4px solid #fff",
-  };
-
-  const profileDetailsStyle = {
-    padding: "20px",
-    color: "#333",
-  };
-
-  const h1Style = {
-    fontSize: "24px",
-    marginBottom: "10px",
-    color: "#2c3e50",
-  };
-
-  const usernameStyle = {
-    fontSize: "16px",
-    color: "#555",
-  };
-
-  const profileButtonsStyle = {
-    marginTop: "20px",
-  };
-
-  const buttonStyle = {
-    marginRight: "10px",
-  };
-
   return (
     isAuthenticated && (
-      <Container style={profileContainerStyle}>
-        <img
-          src={coverImageUrl}
-          alt="Cover"
-          style={coverImageStyle}
-        />
-
-        <Row>
-          <Col md={4} style={profileImageStyle}>
-            <Avatar src={user.picture} alt={user.name} size={200} />
-          </Col>
-          <Col md={8} style={profileDetailsStyle}>
-            <Title level={3} style={h1Style}>{user.name}</Title>
-            <Text style={usernameStyle}>{user.name}</Text>
-            <Space direction="vertical">
-              <Text>{randomQuote}</Text>
-              <div style={profileButtonsStyle}>
-                <Button icon={<ShareAltOutlined />} style={buttonStyle}>
-                  Share
-                </Button>
-                <Button icon={<EditOutlined />} style={buttonStyle}>
-                  Edit Profile
-                </Button>
-              </div>
-            </Space>
-          </Col>
-        </Row>
-      </Container>
+      <div className="relative mt-5 overflow-hidden rounded-lg bg-white shadow-lg">
+        <div className="relative p-6 flex items-center">
+          <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden">
+            <Avatar src={user.picture} alt={user.name} size={128} />
+          </div>
+          <div className="ml-6">
+            <h1 className="text-2xl font-bold text-gray-900">{user.name}</h1>
+            <p className="text-sm text-gray-500">{user.email}</p>
+            <p className="mt-4 text-gray-700">{randomQuote}</p>
+            <div className="mt-4 flex space-x-3">
+              <button className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <ShareAltOutlined className="mr-2" /> Share
+              </button>
+              <button className="flex items-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                <EditOutlined className="mr-2" /> Edit Profile
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   );
 };
 
 export default Profile;
-
-
-

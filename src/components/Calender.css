@@ -1,0 +1,5 @@
+/* NotificationCalendar.css */
+.react-calendar__tile--highlight {
+    background: red;
+    color: white;
+  }

@@ -1,5 +1,5 @@
-import { ChevronFirst, ChevronLast, MoreVertical, LayoutDashboard, Home as HomeIcon, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, User2Icon, LogOut } from "lucide-react";
-import logo from "../assets/logo.png";
+import { ChevronFirst, ChevronLast, MoreVertical, LayoutDashboard, Home as HomeIcon, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, User2Icon, LogOut, DollarSign } from "lucide-react";
+import logo from "../assets/logo2.png";
 import { createContext, useContext } from "react";
 import LogoutButton from "./LogoutButton";
 import { NavLink, useLocation } from 'react-router-dom';
@@ -33,42 +33,41 @@ export default function Sidebar({ isAuthenticated, onToggle, expanded }) {
         return (
           <>
             <SidebarItem icon={<HomeIcon size={20} />} text="Home" to='/dashboard' />
-            <SidebarItem icon={<LayoutDashboard size={20} />} to='/dashboard/managevnt' text="Dashboard" />
+            <SidebarItem icon={<LayoutDashboard size={20} />} to='/dashboard/admin' text="Dashboard" />
             <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/createvnt' text="Projects" alert />
-            <SidebarItem icon={<Calendar size={20} />} text="Calendar" />
+            <SidebarItem icon={<Calendar size={20} />} to='/dashboard/calender' text="Calendar" />
             <SidebarItem icon={<Layers size={20} />} text="Tasks" />
-            <SidebarItem icon={<Flag size={20} />} text="Reporting" />
-            <SidebarItem icon={<Settings size={20} />} text="Settings" />
-            <SidebarItem icon={<LifeBuoy size={20} />} text="Help" />
+            {/* <SidebarItem icon={<Flag size={20} />} text="Reporting" /> */}
+            {/* <SidebarItem icon={<LifeBuoy size={20} />} text="Help" /> */}
             <SidebarItem icon={<User2Icon size={20} />} to='/dashboard/profile' text="User Profile" />
-            <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" />
+            {/* <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" /> */}
           </>
         );
       case 'ngo':
         return (
           <>
             <SidebarItem icon={<HomeIcon size={20} />} text="Home" to='/dashboard' />
-            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/createvnt' text="Pitching" alert />
+            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/pitching' text="Pitching" alert />
             <SidebarItem icon={<Layers size={20} />} text="Tracking Projects" />
-            <SidebarItem icon={<Flag size={20} />} text="Fund Spending" />
-            <SidebarItem icon={<Settings size={20} />} text="Settings" />
-            <SidebarItem icon={<LifeBuoy size={20} />} text="Help" />
+            <SidebarItem icon={<DollarSign size={20} />} to='/dashboard/budgetracking' text="Budget Tracking" />
+            <SidebarItem icon={<Flag size={20} />} to='/dashboard/fundspending' text="Fund Spending" />
+            {/* <SidebarItem icon={<LifeBuoy size={20} />} text="Help" /> */}
             <SidebarItem icon={<User2Icon size={20} />} to='/dashboard/profile' text="User Profile" />
-            <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" />
+            {/* <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" /> */}
           </>
         );
       case 'higherAuthority':
         return (
           <>
             <SidebarItem icon={<HomeIcon size={20} />} text="Home" to='/dashboard' />
-            <SidebarItem icon={<LayoutDashboard size={20} />} to='/dashboard/managevnt' text="Dashboard" />
-            <SidebarItem icon={<Layers size={20} />} text="Budget Distribution" />
-            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/createvnt' text="Manage Projects" alert />
-            <SidebarItem icon={<Flag size={20} />} text="Send Tickets" />
-            <SidebarItem icon={<Settings size={20} />} text="Settings" />
-            <SidebarItem icon={<LifeBuoy size={20} />} text="Help" />
-            <SidebarItem icon={<User2Icon size={20} />} to='/dashboard/profile' text="User Profile" />
-            <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" />
+            <SidebarItem icon={<LayoutDashboard size={20} />} to='/dashboard/desig' text="Dashboard" />
+            <SidebarItem icon={<Layers size={20} />} to='/dashboard/budgetdist' text="Budget Distribution" />
+            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/manageprojects' text="Manage Projects" alert />
+            <SidebarItem icon={<Flag size={20} />} to='/dashboard/sendticket'text="Send Tickets" />
+            <SidebarItem icon={<Calendar size={20} />} to='/dashboard/calender' text="Calendar" />
+            {/* <SidebarItem icon={<LifeBuoy size={20} />} text="Help" /> */}
+            {/* <SidebarItem icon={<User2Icon size={20} />} to='/dashboard/profile' text="User Profile" /> */}
+            {/* <SidebarItem icon={<LogOut size={20} />} onClick={() => <LogoutButton />} text="Logout" /> */}
           </>
         );
       default:
@@ -81,7 +80,7 @@ export default function Sidebar({ isAuthenticated, onToggle, expanded }) {
       <aside className="h-screen">
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
           <div className="p-4 pb-2 flex justify-between items-center">
-            <img src={logo} className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`} />
+            <img src={logo} className={`overflow-hidden transition-all ${expanded ? "w-40" : "w-0"}`} />
             <button onClick={onToggle} className="p-1 rounded-lg bg-gray-50 hover:bg-gray-100">
               {expanded ? <ChevronFirst /> : <ChevronLast />}
             </button>

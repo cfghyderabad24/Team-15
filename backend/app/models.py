@@ -52,7 +52,7 @@ def default_deadline():
 
 class Ticket(models.Model):
     id = models.CharField(max_length= 100, primary_key=True)
-    rasied_by = models.CharField(max_length=100, null=False)
+    raised_by = models.CharField(max_length=100, null=False)
     assigned_to = models.CharField(max_length=100, null=False)
     desc = models.CharField(max_length=700, null=False)
     escalation_level = models.CharField(max_length=100, null=False)

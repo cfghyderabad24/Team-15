@@ -89,12 +89,13 @@ def view_ticket_detail(request, id):
 
 
 @api_view(['POST'])
-def create_ticket(request):
+def ticket_create(request):
     serializer = TicketSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
 
 
 @api_view(['PUT'])
@@ -120,6 +121,20 @@ def delete_ticket(request, id):
 
     ticket.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['PUT'])
+def edit_project_approval(request, project_id):
+    try:
+        project = Project_Table.objects.get(project_id=project_id)
+    except Project_Table.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ProjectTableSerializer(project, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])

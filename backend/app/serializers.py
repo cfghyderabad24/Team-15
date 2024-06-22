@@ -27,3 +27,9 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = '__all__'
+
+
+class ProjectTableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project_Table
+        fields = '__all__'

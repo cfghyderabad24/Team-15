@@ -49,8 +49,8 @@ export default function Sidebar({ isAuthenticated, onToggle, expanded }) {
         return (
           <>
             <SidebarItem icon={<HomeIcon size={20} />} text="Home" to='/dashboard' />
-            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/pitching' text="Pitching" alert />
-            <SidebarItem icon={<Layers size={20} />} text="Tracking Projects" />
+            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/createproject' text="Create Project"/>
+            <SidebarItem icon={<Layers size={20} />} to='/dashboard/trackprojects' text="Tracking Projects" />
             <SidebarItem icon={<DollarSign size={20} />} to='/dashboard/budgetracking' text="Budget Tracking" />
             <SidebarItem icon={<Flag size={20} />} to='/dashboard/fundspending' text="Fund Spending" />
             {/* <SidebarItem icon={<LifeBuoy size={20} />} text="Help" /> */}

@@ -69,7 +69,8 @@ const Home = ({ isAuthenticated }) => {
           <>
             <Route path='/' element={<WelcomeNgo />} />
             <Route path='/budgetracking' element={<BudgetTracker/>} />
-            <Route path='/pitching' element={<Pitching/>} />
+            <Route path='/createproject' element={<Pitching/>} />
+            <Route path='/trackprojects' element={<Projects/>} />
             <Route path='/fundspending' element={<FundsApproval/>} />
             <Route path='/profile' element={<Profile />} />
             {/* <Route path='/createvnt' element={<CreateEvent />} /> */}

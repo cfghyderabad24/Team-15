@@ -5,7 +5,7 @@ import { BarLoader } from "react-spinners";
 import LoginPage from "./containers/LoginPage";
 import Home from "./containers/Home";
 import NotFoundPage from "./containers/NotFoundPage";
-import AccessDeniedPage from "./containers/AccessDeniedPage";
+import AccessDeniedPage from "./containers/AccessDeniedPage";// done with google translation
 
 const PrivateRoute = ({ element: Element, isAuthenticated }) => {
   return isAuthenticated ? <Element /> : <Navigate to="/access-denied" />;

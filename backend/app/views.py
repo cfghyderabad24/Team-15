@@ -56,6 +56,7 @@ def create_notification(project_id):
     if serializer.is_valid():
         serializer.save()
 
+
 @api_view(['GET'])
 def get_notification(request, notification_id):
     try:

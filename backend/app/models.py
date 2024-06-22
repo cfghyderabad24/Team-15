@@ -83,7 +83,7 @@ class Report(models.Model):
     id = models.CharField(max_length= 100, primary_key=True)
     report_name = models.CharField(max_length=100, null=False)
     upload_time = models.DateTimeField(default=datetime.now)
-    attachments = models.FileField(null = True)
+    attachments = models.CharField(null = False)
     created_by = models.CharField(max_length=100, null = False)
 
     def __str__(self):

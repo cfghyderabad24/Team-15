@@ -67,19 +67,37 @@ def get_notification(request, notification_id):
     serializer = NotificationSerializer(notification)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def update_notifications(request, notification_id):
     try:
-        notification = Notifications.objects.get(id=notification_id)
+        notification = Notifications.objects.get(project_id=notification_id)
     except Notifications.DoesNotExist:
         return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    data = request.data
-    serializer = NotificationSerializer(notification, data=data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Set admin_access to True
+    notification.admin_access = True
+    notification.save()
+
+    # Serialize the updated notification
+    serializer = NotificationSerializer(notification)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def update_notifications_false(request, notification_id):
+    try:
+        notification = Notifications.objects.get(project_id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Set admin_access to True
+    notification.admin_access = False
+    notification.save()
+
+    # Serialize the updated notification
+    serializer = NotificationSerializer(notification)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

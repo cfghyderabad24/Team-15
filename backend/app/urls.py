@@ -17,6 +17,7 @@ path('notifications/<int:notification_id>', views.get_notification, name='update
 
 path('notifications/<int:notification_id>/edit', views.update_notifications, name='update_notifications'),
 #path('notifications/<int:notification_id>/', get_notification, name='get_notification'),
+path('notifications/<int:notification_id>/edit1', views.update_notifications_false, name='update_notifications_false'),
 
 
 

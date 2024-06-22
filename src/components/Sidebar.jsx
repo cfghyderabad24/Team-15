@@ -1,4 +1,4 @@
-import { ChevronFirst, ChevronLast, MoreVertical, LayoutDashboard, Home as HomeIcon, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, User2Icon, LogOut, DollarSign } from "lucide-react";
+import { ChevronFirst, ChevronLast, MoreVertical, LayoutDashboard, Home as HomeIcon, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings, User2Icon, LogOut, DollarSign,Bell } from "lucide-react";
 import logo from "../assets/logo2.png";
 import { createContext, useContext } from "react";
 import LogoutButton from "./LogoutButton";
@@ -34,9 +34,11 @@ export default function Sidebar({ isAuthenticated, onToggle, expanded }) {
           <>
             <SidebarItem icon={<HomeIcon size={20} />} text="Home" to='/dashboard' />
             <SidebarItem icon={<LayoutDashboard size={20} />} to='/dashboard/admin' text="Dashboard" />
-            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/createvnt' text="Projects" alert />
+            <SidebarItem icon={<Bell size={20} />} to='/dashboard/notifications' text="Notifications" />
+            <SidebarItem icon={<StickyNote size={20} />} to='/dashboard/projects' text="Projects"/>
             <SidebarItem icon={<Calendar size={20} />} to='/dashboard/calender' text="Calendar" />
-            <SidebarItem icon={<Layers size={20} />} text="Tasks" />
+            <SidebarItem icon={<Layers size={20} />} to='/dashboard/tasks' text="Tasks" />
+            
             {/* <SidebarItem icon={<Flag size={20} />} text="Reporting" /> */}
             {/* <SidebarItem icon={<LifeBuoy size={20} />} text="Help" /> */}
             <SidebarItem icon={<User2Icon size={20} />} to='/dashboard/profile' text="User Profile" />

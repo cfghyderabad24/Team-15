@@ -1,10 +1,10 @@
-import './Dashboard.css';
+import React from 'react';
 import Homecheck from '../../components/Homecheck';
 
 function Admindash() {
   return (
-    <div className="main-container">
-      <Homecheck/>
+    <div className="min-h-screen bg-white text-gray-500 font-montserrat">
+      <Homecheck />
     </div>
   );
 }

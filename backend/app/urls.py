@@ -36,11 +36,11 @@ path('createuserhigher', views.create_user_higher, name='create_userngo'),
     path('projects/approved_count/', views.approved_count, name='approved_count'),
 
     #tickets
-    path('tickets/', views.view_tickets, name='view_tickets'),
-    path('tickets/<str:id>/', views.view_ticket_detail, name='view_ticket_detail'),
+    path('tickets', views.view_tickets, name='view_tickets'),
+    path('tickets/<str:id>', views.view_ticket_detail, name='view_ticket_detail'),
     path('tickets/create', views.ticket_create, name='ticket_create'),
-    path('tickets/update/<str:id>/', views.update_ticket, name='update_ticket'),
-    path('tickets/delete/<str:id>/', views.delete_ticket, name='delete_ticket'),
+    path('tickets/update/<str:id>', views.update_ticket, name='update_ticket'),
+    path('tickets/delete/<str:id>', views.delete_ticket, name='delete_ticket'),
 
     #Message_Sending
 

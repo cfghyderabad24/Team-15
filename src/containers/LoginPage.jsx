@@ -74,11 +74,11 @@ React.useEffect(() => {
                 >
                     <Box display='flex' flexDirection='column' alignItems='center' mb={3}>
                         <img src='./event.png' alt='Event Logo' style={{ height: '50px', width: '50px', marginBottom: '10px' }} />
-                        <Typography variant='h4'>Event Stash</Typography>
+                        <Typography variant='h4'>CRY/Typography>
                     </Box>
 
                     <Typography variant='body1' color='text.secondary' mb={3}>
-                        Your One Stop Solution for Event Management
+                        Your One Stop Solution for CRY
                     </Typography>
                     <Typography variant='h6' color='text.primary' mb={3}>
                         Click Below to Login/Signup
@@ -124,7 +124,7 @@ React.useEffect(() => {
                     {/* Footer */}
                     <Box sx={{ mt: 'auto',alignItems:'flex-end' }}>
                         <Typography variant='body2' color='text.secondary'>
-                            &copy; 2023 Event Stash. All rights reserved.
+                            &copy; 2024 CRY. All rights reserved.
                         </Typography>
                     </Box>
                 </Box>

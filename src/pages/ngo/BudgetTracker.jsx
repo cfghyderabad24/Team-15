@@ -27,7 +27,7 @@ const BudgetTracker = () => {
       <div className="bg-white rounded-xl p-12 max-w-5xl w-full">
         <h1 className="text-5xl font-extrabold mb-4 text-center text-gray-900 animated-heading">Budget Tracker</h1>
         <p className="text-xl text-center text-gray-600 mb-12 italic">
-          "The way to get started is to quit talking and begin doing." – Walt Disney
+          "The way to get started is to quit talking and begin doing." 
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-16 text-center mb-16">

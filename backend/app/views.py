@@ -4,6 +4,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Project_Table, Report
 from .serializers import *
+from twilio.rest import Client
+from decouple import config
+
+from django.shortcuts import render
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
 
 @api_view(['GET'])
 def index(request):
@@ -161,3 +167,16 @@ def emails(request):
     if request.method == 'POST':
         # handle sending emails
         return Response({"message": "Emails functionality not implemented yet."}, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+@api_view(['GET'])
+def send_message(request):
+    account_sid = ''
+    auth_token = ''
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+    from_='whatsapp:+14155238886',
+    body='Reminder : Visit is due in 7 days',
+    to='whatsapp:+919971189661'
+    )
+    print(message.status)
+    return Response({"message": "Message Sent"})

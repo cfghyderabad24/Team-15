@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('ngo/viewprojects', views.view_projects, name='view_projects'),
+    path('viewprojects', views.view_projects, name='view_projects'),
     path('higher/viewapprovals', views.view_approvals, name='view_approvals'),
 
 path('view/userngo',views.view_user_ngo,name= 'view_user_ngo'),
@@ -11,7 +11,6 @@ path('view/userhigher',views.view_user_higher,name= 'view_user_higher'),
 
     path('ngo/emails', views.emails, name='emails'),
 
-    path('projects/<str:project_id>/edit/approval', views.edit_project_approval, name='edit_project_approval'),
 
     path('ngo/createreport', views.create_report, name='create_report'),
     path('ngo/createproject', views.create_project, name='create_project'),
@@ -24,6 +23,7 @@ path('createuserhigher', views.create_user_higher, name='create_userngo'),
     #ticket - view-create
     #--> pending tickets -> filter by excalation
     #path('project/<str:project_id>/edit', views.edit_is_approved, name='edit_is_approved'),
+    path('projects/<str:project_id>/edit/approval', views.edit_project_approval, name='edit_project_approval'),
     path('projects/approved_count/', views.approved_count, name='approved_count'),
 
     #tickets
@@ -32,5 +32,9 @@ path('createuserhigher', views.create_user_higher, name='create_userngo'),
     path('tickets/create', views.ticket_create, name='ticket_create'),
     path('tickets/update/<str:id>/', views.update_ticket, name='update_ticket'),
     path('tickets/delete/<str:id>/', views.delete_ticket, name='delete_ticket'),
+
+    #Message_Sending
+
+    path('send_message/', views.send_message, name='send_message')
 
 ]

@@ -37,6 +37,7 @@ class User_Ngo(models.Model):
         return self.username
 
 class Project_Table(models.Model):
+
     project_id = models.CharField(max_length= 100, primary_key=True)
     project_name = models.CharField(max_length=100, null=False)
     desc = models.CharField(max_length=700, null=False)
@@ -51,6 +52,7 @@ def default_deadline():
     return datetime.now() + timedelta(days=10)
 
 class Ticket(models.Model):
+
     id = models.CharField(max_length= 100, primary_key=True)
     raised_by = models.CharField(max_length=100, null=False)
     assigned_to = models.CharField(max_length=100, null=False)
@@ -64,6 +66,7 @@ class Ticket(models.Model):
         return self.username
 
 class Report(models.Model):
+    
     id = models.CharField(max_length= 100, primary_key=True)
     report_name = models.CharField(max_length=100, null=False)
     upload_time = models.DateTimeField(default=datetime.now)

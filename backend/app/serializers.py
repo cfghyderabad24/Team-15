@@ -33,3 +33,8 @@ class ProjectTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project_Table
         fields = '__all__'
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notifications
+        fields = '__all__'

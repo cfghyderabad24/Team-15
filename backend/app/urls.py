@@ -12,6 +12,12 @@ path('view/userhigher',views.view_user_higher,name= 'view_user_higher'),
     path('ngo/emails', views.emails, name='emails'),
 
 
+path('notifications/<int:notification_id>', views.get_notification, name='update_notifications'),
+# same for both udates
+path('notifications/<int:notification_id>/edit', views.update_notifications, name='update_notifications'),
+#path('notifications/<int:notification_id>/', get_notification, name='get_notification'),
+
+
     path('ngo/createreport', views.create_report, name='create_report'),
     path('ngo/createproject', views.create_project, name='create_project'),
 path('createuserngo', views.create_user_ngo, name='create_userngo'),

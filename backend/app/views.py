@@ -48,14 +48,69 @@ def create_report(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def create_notification(project_id):
+    d = {
+        'project_id': project_id,
+    }
+    serializer = NotificationSerializer(data=d)
+    if serializer.is_valid():
+        serializer.save()
+
+@api_view(['GET'])
+def get_notification(request, notification_id):
+    try:
+        notification = Notifications.objects.get(id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = NotificationSerializer(notification)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+def update_notifications(request, notification_id):
+    try:
+        notification = Notifications.objects.get(id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    data = request.data
+    serializer = NotificationSerializer(notification, data=data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 @api_view(['POST'])
 def create_project(request):
     if request.method == 'POST':
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            project = serializer.save()
+            create_notification(project.project_id)
+            # send notifications
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# def create_project(request):
+#     if request.method == 'POST':
+#         # Check if project with the given ID already exists
+#         project_id = request.data.get('project_id')
+#         if Project_Table.objects.filter(project_id=project_id).exists():
+#             return Response(
+#                 {"project_id": ["A project with this project_id already exists."]},
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+#
+#         serializer = ProjectSerializer(data=request.data)
+#         if serializer.is_valid():
+#             project = serializer.save()
+#             create_notification(project.project_id)
+#             # send notifications
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def create_user_ngo(request):
@@ -170,6 +225,7 @@ def emails(request):
 
 @api_view(['GET'])
 def send_message(request):
+    obj=Project_Table.objects.all()
     account_sid = ''
     auth_token = ''
     client = Client(account_sid, auth_token)

@@ -3,7 +3,7 @@ import React from 'react';
 function Notifications() {
   const notifications = [
     {
-      projectId: '1234',
+      projectId: '1235',
       ngoName: 'NGO A',
       description: 'Help build a community center.',
       deadline: '2024-07-01',

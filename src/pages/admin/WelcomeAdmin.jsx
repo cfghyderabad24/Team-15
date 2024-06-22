@@ -5,7 +5,7 @@ const WelcomeAdmin = () => {
   return (
     <div>
       <h1>Welcome Admin</h1>
-      <p>This is the Create Event page.</p>
+      <p>This is Admin Page.</p>
       <LogoutButton/>
     </div>
   );

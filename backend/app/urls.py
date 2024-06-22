@@ -11,7 +11,7 @@ path('view/userhigher',views.view_user_higher,name= 'view_user_higher'),
 
     path('ngo/emails', views.emails, name='emails'),
 
-
+path('notifications',views.view_all_notification,name = 'view_all_notification'),
 path('notifications/<int:notification_id>', views.get_notification, name='update_notifications'),
 # same for both udates
 

@@ -42,7 +42,7 @@ class Project_Table(models.Model):
 
 class User_Ngo(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
-    username = models.CharField(max_length=100, null=False)
+    username = models.CharField(max_length=600, null=False)
     password = models.CharField(max_length=100, null=False)
     email = models.CharField(max_length=100, null=False)
     created_time = models.DateTimeField(default=datetime.now, blank=True)
@@ -83,7 +83,7 @@ class Report(models.Model):
     id = models.CharField(max_length= 100, primary_key=True)
     report_name = models.CharField(max_length=100, null=False)
     upload_time = models.DateTimeField(default=datetime.now)
-    attachments = models.CharField(null = False)
+    attachments = models.CharField(max_length=100,null = False)
     created_by = models.CharField(max_length=100, null = False)
 
     def __str__(self):

@@ -82,6 +82,22 @@ def update_notifications(request, notification_id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def view_all_notification(request):
+    if request.method == 'GET':
+        notifications = Notifications.objects.all()
+        projects = Project_Table.objects.all()  # Assuming you have a Project model
+
+        notification_serializer = NotificationSerializer(notifications, many=True)
+        project_serializer = ProjectSerializer(projects, many=True)
+
+        # Combine the serialized data into a dictionary
+        data = {
+            'notifications': notification_serializer.data,
+            'projects': project_serializer.data
+        }
+
+        return Response(data)
 
 @api_view(['POST'])
 def create_project(request):

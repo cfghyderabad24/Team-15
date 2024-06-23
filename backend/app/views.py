@@ -6,7 +6,7 @@ from .models import Project_Table, Report
 from .serializers import *
 from twilio.rest import Client
 from decouple import config
-
+import time
 from django.shortcuts import render
 TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
@@ -261,12 +261,13 @@ def emails(request):
 @api_view(['GET'])
 def send_message(request):
     obj=Project_Table.objects.all()
-    account_sid = ''
-    auth_token = ''
+    account_sid = 'Account sid (api)'
+    auth_token = 'Account auth token'
     client = Client(account_sid, auth_token)
+    id=obj[0].project_id
     message = client.messages.create(
     from_='whatsapp:+14155238886',
-    body='Reminder : Visit is due in 7 days',
+    body='Reminder! Project ID :'+str(id)+'is due in 7 days',
     to='whatsapp:+919971189661'
     )
     print(message.status)

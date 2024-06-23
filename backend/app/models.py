@@ -11,8 +11,7 @@ class User_Admin(models.Model):
     created_time = models.DateTimeField(default=datetime.now, blank=True)
     level = models.CharField(max_length=5, default='Admin', editable=False)
 
-    def __str__(self):
-        return self.username
+
 
 
 class User_Higher(models.Model):
@@ -23,8 +22,7 @@ class User_Higher(models.Model):
     created_time = models.DateTimeField(default=datetime.now, blank=True)
     level = models.CharField(max_length=50, default='Higher', editable=False)
 
-    def __str__(self):
-        return self.username
+
 
 
 class Project_Table(models.Model):
@@ -75,8 +73,7 @@ class Ticket(models.Model):
     solved_time = models.DateTimeField(null = True)
     deadline_time = models.DateTimeField(default=default_deadline)
 
-    def __str__(self):
-        return self.username
+
 
 class Report(models.Model):
 
@@ -86,5 +83,4 @@ class Report(models.Model):
     attachments = models.CharField(max_length=100,null = False)
     created_by = models.CharField(max_length=100, null = False)
 
-    def __str__(self):
-        return self.username
+

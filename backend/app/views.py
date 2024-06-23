@@ -4,6 +4,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Project_Table, Report
 from .serializers import *
+from twilio.rest import Client
+from decouple import config
+
+from django.shortcuts import render
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
 
 @api_view(['GET'])
 def index(request):
@@ -42,14 +48,104 @@ def create_report(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def create_notification(project_id):
+    d = {
+        'project_id': project_id,
+    }
+    serializer = NotificationSerializer(data=d)
+    if serializer.is_valid():
+        serializer.save()
+
+
+@api_view(['GET'])
+def get_notification(request, notification_id):
+    try:
+        notification = Notifications.objects.get(id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = NotificationSerializer(notification)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def update_notifications(request, notification_id):
+    try:
+        notification = Notifications.objects.get(project_id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Set admin_access to True
+    notification.admin_access = True
+    notification.save()
+
+    # Serialize the updated notification
+    serializer = NotificationSerializer(notification)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def update_notifications_false(request, notification_id):
+    try:
+        notification = Notifications.objects.get(project_id=notification_id)
+    except Notifications.DoesNotExist:
+        return Response({'error': 'Notification not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Set admin_access to True
+    notification.admin_access = False
+    notification.save()
+
+    # Serialize the updated notification
+    serializer = NotificationSerializer(notification)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def view_all_notification(request):
+    if request.method == 'GET':
+        notifications = Notifications.objects.all()
+        projects = Project_Table.objects.all()  # Assuming you have a Project model
+
+        notification_serializer = NotificationSerializer(notifications, many=True)
+        project_serializer = ProjectSerializer(projects, many=True)
+
+        # Combine the serialized data into a dictionary
+        data = {
+            'notifications': notification_serializer.data,
+            'projects': project_serializer.data
+        }
+
+        return Response(data)
+
 @api_view(['POST'])
 def create_project(request):
     if request.method == 'POST':
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            project = serializer.save()
+            create_notification(project.project_id)
+            # send notifications
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# def create_project(request):
+#     if request.method == 'POST':
+#         # Check if project with the given ID already exists
+#         project_id = request.data.get('project_id')
+#         if Project_Table.objects.filter(project_id=project_id).exists():
+#             return Response(
+#                 {"project_id": ["A project with this project_id already exists."]},
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+#
+#         serializer = ProjectSerializer(data=request.data)
+#         if serializer.is_valid():
+#             project = serializer.save()
+#             create_notification(project.project_id)
+#             # send notifications
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def create_user_ngo(request):
@@ -161,3 +257,17 @@ def emails(request):
     if request.method == 'POST':
         # handle sending emails
         return Response({"message": "Emails functionality not implemented yet."}, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+@api_view(['GET'])
+def send_message(request):
+    obj=Project_Table.objects.all()
+    account_sid = ''
+    auth_token = ''
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+    from_='whatsapp:+14155238886',
+    body='Reminder : Visit is due in 7 days',
+    to='whatsapp:+919971189661'
+    )
+    print(message.status)
+    return Response({"message": "Message Sent"})

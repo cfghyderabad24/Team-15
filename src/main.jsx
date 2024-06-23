@@ -7,8 +7,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Auth0Provider
-    domain="event-stash.us.auth0.com"
-    clientId=""
+    domain="Your_Domain_URL"
+    clientId="Your_Client_ID"
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
